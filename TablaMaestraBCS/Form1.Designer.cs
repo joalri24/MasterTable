@@ -28,20 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.buttonCargarRRHH = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(49, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "RRHH";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(90, 47);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(163, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // buttonCargarRRHH
+            // 
+            this.buttonCargarRRHH.Location = new System.Drawing.Point(268, 44);
+            this.buttonCargarRRHH.Name = "buttonCargarRRHH";
+            this.buttonCargarRRHH.Size = new System.Drawing.Size(75, 23);
+            this.buttonCargarRRHH.TabIndex = 2;
+            this.buttonCargarRRHH.Text = "Cargar";
+            this.buttonCargarRRHH.UseVisualStyleBackColor = true;
+            this.buttonCargarRRHH.Click += new System.EventHandler(this.buttonCargarRRHH_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 261);
+            this.Controls.Add(this.buttonCargarRRHH);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button buttonCargarRRHH;
     }
 }
 

@@ -16,5 +16,18 @@ namespace TablaMaestraBCS
         {
             InitializeComponent();
         }
+
+        private void buttonCargarRRHH_Click(object sender, EventArgs e)
+        {
+            // Opens the select directory Dialog
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string[] lineas = System.IO.File.ReadAllLines(openFileDialog1.FileName);
+                foreach (var linea in lineas)
+                {
+                    Console.WriteLine(linea);
+                }
+            }
+        }
     }
 }
