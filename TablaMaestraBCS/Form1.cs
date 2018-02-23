@@ -12,11 +12,24 @@ namespace TablaMaestraBCS
 {
     public partial class Form1 : Form
     {
+
+        private TablaMaestra maestra;
         public Form1()
         {
             InitializeComponent();
+            maestra = new TablaMaestra();
         }
 
+
+        // -------------------------------------------------------------------------------------------
+        // Métodos
+        // -------------------------------------------------------------------------------------------
+        
+        /// <summary>
+        /// Carga Usuarios del archivo RRHH.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonCargarRRHH_Click(object sender, EventArgs e)
         {
             // Opens the select directory Dialog
@@ -28,11 +41,13 @@ namespace TablaMaestraBCS
                 {
                     //EMP_CODIGO,APELLIDO1,APELLIDO2,NOMBRE,LOGIN,CARGO,EMPRESA,OFICINA,GERENCIA,REGIONAL,AREA,TIPO_NOMIN,CIUDAD,F_INGRESO,FIN_CONTRA,NIVEL
                     string[] linea = lineas[i].Split(',');
-                    usuario = new UsuarioRRHH(codigoEmpleado: linea[0], apellido1: linea[1], apellido2:linea[2], nombre:linea[3], login:linea[4],
-                        cargo: linea[5], empresa:linea[6], ciudad: linea[12]);
-                    Console.WriteLine(usuario.ToString());
+                    usuario = new UsuarioRRHH(codigoEmpleado: linea[0], apellido1: linea[1], apellido2:linea[2], 
+                        nombre:linea[3], login:linea[4], cargo: linea[5], empresa:linea[6], ciudad: linea[12]);
+                    maestra.CargarUsuario(usuario);                   
                 }
             }
+
+            maestra.ImprimirEnConsola();
         }
     }
 }
