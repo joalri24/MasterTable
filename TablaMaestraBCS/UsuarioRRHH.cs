@@ -72,8 +72,16 @@ namespace TablaMaestraBCS
         }
 
 
+        // -------------------------------------------------------------------------------------------
+        // Métodos
+        // ------------------------------------------------------------------------------------------- 
 
-
+        public override String ToString()
+        {
+            return "CE: "+ CodigoEmpleado +" Ap1: "+ Apellido1 + " Ap2: " + Apellido2 + " Nom: " + Nombre
+                + " login: " + Login + " Carg: " + Cargo + " Emp: " + Empresa + " Ciud: " + Ciudad;
+        }
+                
 
     }
 }
