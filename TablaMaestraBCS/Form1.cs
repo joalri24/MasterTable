@@ -14,6 +14,9 @@ namespace TablaMaestraBCS
     {
 
         private TablaMaestra maestra;
+        private string nombreArchivoRRHH;
+        private string nombreArchivoFS;
+
         public Form1()
         {
             InitializeComponent();
@@ -32,20 +35,60 @@ namespace TablaMaestraBCS
         /// <param name="e"></param>
         private void buttonCargarRRHH_Click(object sender, EventArgs e)
         {
-            // Opens the select directory Dialog
+            // Opens the select file Dialog
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                string[] lineas = System.IO.File.ReadAllLines(openFileDialog1.FileName);
-                Usuario usuario;
-                for (int i = 1; i< lineas.Length; i++)
-                {
-                    //usuario = new UsuarioRRHH(codigoEmpleado: linea[0], apellido1: linea[1], apellido2:linea[2], nombre:linea[3], login:linea[4], cargo: linea[5], empresa:linea[6], ciudad: linea[12]);
-                    usuario = Usuario.CrearUsuario(Usuario.Fuentes.RRHH, lineas[i]);
-                    maestra.CargarUsuario(usuario);                   
-                }
+                nombreArchivoRRHH = openFileDialog1.FileName;
+                textBoxRRHH.Text = nombreArchivoRRHH;
             }
+                
+        }
 
+        private void buttonCargarFS_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                nombreArchivoFS= openFileDialog1.FileName;
+                textBoxFS.Text = nombreArchivoFS;
+            }
+        }
+
+        private void ButtonCorrer_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrWhiteSpace(nombreArchivoRRHH))
+            {
+                LeerArchivo(Usuario.Fuentes.RRHH, nombreArchivoRRHH);
+            }
+            if (!string.IsNullOrWhiteSpace(nombreArchivoFS))
+            {
+                LeerArchivo(Usuario.Fuentes.AD_FS, nombreArchivoFS);
+            }
             maestra.ImprimirEnConsola();
+        }
+
+        private void LeerArchivo(Usuario.Fuentes fuente, string nombreArchivo)
+        {
+            int inicio = 0;
+            switch (fuente)
+            {
+                case Usuario.Fuentes.RRHH:
+                    inicio = 1;
+                    break;
+                case Usuario.Fuentes.Temporales:
+                    break;
+                case Usuario.Fuentes.AD_FS:
+                    inicio = 2;
+                    break;
+                default:
+                    break;
+            }
+            string[] lineas = System.IO.File.ReadAllLines(nombreArchivo);
+            Usuario usuario;
+            for (int i = inicio; i < lineas.Length; i++)
+            {
+                usuario = Usuario.CrearUsuario(fuente, lineas[i]);
+                maestra.CargarUsuario(usuario);
+            }
         }
 
     }

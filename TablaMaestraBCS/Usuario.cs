@@ -82,12 +82,12 @@ namespace TablaMaestraBCS
         }
 
         public static Usuario CrearUsuario(Fuentes fuente, string datos)
-        {
-            string[] linea = datos.Split(',');
+        {           
             Usuario usuario = new Usuario();
             switch (fuente)
 	        {
 		        case Fuentes.RRHH:
+                    string[] linea = datos.Split(',');
                     //EMP_CODIGO,APELLIDO1,APELLIDO2,NOMBRE,LOGIN,CARGO,EMPRESA,OFICINA,GERENCIA,REGIONAL,AREA,TIPO_NOMIN,CIUDAD,F_INGRESO,FIN_CONTRA,NIVEL
                     //usuario = new UsuarioRRHH(codigoEmpleado: linea[0], apellido1: linea[1], apellido2: linea[2], nombre: linea[3], login: linea[4], cargo: linea[5], empresa: linea[6], ciudad: linea[12]);
                     usuario.Cedula = linea[0];
@@ -101,7 +101,19 @@ namespace TablaMaestraBCS
 
                 case Fuentes.Temporales:
                     break;
+
+
                 case Fuentes.AD_FS:
+                    // Los datos están separados por ancho fijo
+                    //Name                                                             extensionAttribute1 SamAccountName       Company                                                    Department                                                       Title                                                            SamAccountName       Enabled Created                AccountExpirationDate  LastLogonDate         .
+                    usuario.NombreCompleto = datos.Substring(0, 65).Trim();
+                    usuario.Cedula = datos.Substring(65, 20).Trim();
+                    usuario.Login = datos.Substring(85, 21).Trim();
+                    usuario.Organizacion = datos.Substring(106, 59).Trim();
+                    usuario.Cargo = datos.Substring(230, 65).Trim();
+                    //usuario.Activada = bool.Parse(datos.Substring(316, 7).Trim());
+                    usuario.Activada = true;
+                    usuario.DA_FS = true;
                     break;
                 default:
                     break;
@@ -110,7 +122,7 @@ namespace TablaMaestraBCS
         }
 
         /// <summary>
-        /// Imprie el usuario como una línea separada por comas.
+        /// Imprime el usuario como una línea separada por comas.
         /// </summary>
         /// <returns></returns>
         public string ToCSV()
