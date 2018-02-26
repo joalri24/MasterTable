@@ -12,6 +12,14 @@ namespace TablaMaestraBCS
     class Usuario
     {
 
+        public enum Fuentes
+        {
+            RRHH,
+            Temporales,
+            AD_FS
+        }
+       
+
         public string NombreCompleto { get; set; }
         public string Login { get; set; }
         public string Cedula { get; set; }
@@ -48,6 +56,10 @@ namespace TablaMaestraBCS
             Ciudad = null;
             Cargo = null;
             Activada = true;
+            RRHH = false;
+            DA_FS = false;
+            DA_OFBCSC = false;
+            DA_ARP = false;
 
         }
 
@@ -69,6 +81,34 @@ namespace TablaMaestraBCS
             DA_ARP = da_arp;
         }
 
+        public static Usuario CrearUsuario(Fuentes fuente, string datos)
+        {
+            string[] linea = datos.Split(',');
+            Usuario usuario = new Usuario();
+            switch (fuente)
+	        {
+		        case Fuentes.RRHH:
+                    //EMP_CODIGO,APELLIDO1,APELLIDO2,NOMBRE,LOGIN,CARGO,EMPRESA,OFICINA,GERENCIA,REGIONAL,AREA,TIPO_NOMIN,CIUDAD,F_INGRESO,FIN_CONTRA,NIVEL
+                    //usuario = new UsuarioRRHH(codigoEmpleado: linea[0], apellido1: linea[1], apellido2: linea[2], nombre: linea[3], login: linea[4], cargo: linea[5], empresa: linea[6], ciudad: linea[12]);
+                    usuario.Cedula = linea[0];
+                    usuario.NombreCompleto = linea[3] + " " + linea[1] + " " + linea[2];
+                    usuario.Login = linea[4];
+                    usuario.Organizacion = linea[6];
+                    usuario.Cargo = linea[5];
+                    usuario.Ciudad = linea[12];
+                    usuario.RRHH = true;                    
+                    break;
+
+                case Fuentes.Temporales:
+                    break;
+                case Fuentes.AD_FS:
+                    break;
+                default:
+                    break;
+	        }
+            return usuario;
+        }
+
         /// <summary>
         /// Imprie el usuario como una línea separada por comas.
         /// </summary>
@@ -78,6 +118,6 @@ namespace TablaMaestraBCS
             return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + Activada + ',' + RRHH + ',' + DA_FS + ',' + DA_ARP + ',' + DA_OFBCSC;
         }
 
-
+        
     }
 }

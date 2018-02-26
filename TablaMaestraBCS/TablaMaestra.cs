@@ -24,62 +24,66 @@ namespace TablaMaestraBCS
             diccionarioCedulas = new Dictionary<string, int>();
         }
 
-        public void CargarUsuario(UsuarioRRHH usuario)
+        /// <summary>
+        /// Carga un usuario a la tabla maestra. Reconoce si debe crear un nuevo usuario o si solo
+        /// debe actualizar una ya existente.
+        /// </summary>
+        /// <param name="usuario"></param>
+        public void CargarUsuario(Usuario usuario)
         {
             // si no tiene ni login no cedula, ¿a que jugamos, parce?
-            if (string.IsNullOrWhiteSpace(usuario.Login) && string.IsNullOrWhiteSpace(usuario.CodigoEmpleado) )
+            if (string.IsNullOrWhiteSpace(usuario.Login) && string.IsNullOrWhiteSpace(usuario.Cedula) )
                 return;
 
-            if (!string.IsNullOrWhiteSpace(usuario.Login) ) // si la entrada tiene login
+            // si la entrada tiene login
+            if (!string.IsNullOrWhiteSpace(usuario.Login)) 
             {
-                if(diccionarioLogins.ContainsKey(usuario.Login))
+                if (diccionarioLogins.ContainsKey(usuario.Login))
                 {
-                    Usuario usuarioExistente = diccionarioUsuarios[diccionarioLogins[usuario.Login]];
-
-                }
-                else // si  el login no está en el diccionario
-                {
-                    // Probar con la cédula 
-                    if (diccionarioCedulas.ContainsKey(usuario.CodigoEmpleado))
+                    // TODO: Actualizar usuario
+                    //Usuario usuarioExistente = diccionarioUsuarios[diccionarioLogins[usuario.Login]];
+                    // Agregar al diccionario de cédulas.
+                    if (string.IsNullOrWhiteSpace(usuario.Cedula))
                     {
-                        Usuario usuarioExistente = diccionarioUsuarios[diccionarioCedulas[usuario.CodigoEmpleado]];
+                        if (!diccionarioCedulas.ContainsKey(usuario.Cedula))
+                            diccionarioCedulas.Add(usuario.Cedula, diccionarioLogins[usuario.Login]);                      
+                        else
+                            diccionarioCedulas[usuario.Cedula] = diccionarioLogins[usuario.Login];
                     }
-
-                    else // No está en ningún lado 
-                    {
-                        // Crear la entrada en los diccionarios
-                        if(!string.IsNullOrWhiteSpace(usuario.CodigoEmpleado))
-                            diccionarioCedulas.Add(usuario.CodigoEmpleado, contadorUsuarios);
-                        if (!string.IsNullOrWhiteSpace(usuario.CodigoEmpleado))
-                            diccionarioLogins.Add(usuario.Login, contadorUsuarios);
-                        contadorUsuarios++;
-
-                        // Crea el usuario
-                        string nombre = usuario.Nombre + " " + usuario.Apellido1 + " " +usuario.Apellido2;
-                        Usuario nuevoUsuario = new Usuario(nombreCompleto:nombre, login:usuario.Login, cedula: usuario.CodigoEmpleado, organizacion:usuario.Empresa, ciudad:usuario.Ciudad, cargo:usuario.Cargo, activada:true, rrhh: true, da_fs: false, da_ofcbsb: false, da_arp: false) ;
-                        diccionarioUsuarios.Add(contadorUsuarios, nuevoUsuario);
-                    } 
+                    return;
                 }
+
+                // Probar con la cédula
+                if (!string.IsNullOrWhiteSpace(usuario.Cedula) && diccionarioCedulas.ContainsKey(usuario.Cedula))
+                {
+                    // TODO: Actualizar usuario
+                    // Agregar al diccionario de logines
+                    diccionarioLogins.Add(usuario.Cedula, diccionarioCedulas[usuario.Cedula]);
+                    return;
+                }
+
+                // Si no está en ningún diccionario:
+                diccionarioLogins.Add(usuario.Login, contadorUsuarios);
+                if (!string.IsNullOrWhiteSpace(usuario.Cedula)) diccionarioCedulas.Add(usuario.Cedula, contadorUsuarios);
+                diccionarioUsuarios.Add(contadorUsuarios, usuario);
+                contadorUsuarios++;
                 return;
             }
 
-            // La entrada no tiene login
-            if (diccionarioCedulas.ContainsKey(usuario.CodigoEmpleado)) // Si la cédula esta en el diccionario
+            // Si no hay login:
+            if(diccionarioCedulas.ContainsKey(usuario.Cedula)) // Buscar por cc.
             {
-                Usuario usuarioExistente = diccionarioUsuarios[diccionarioCedulas[usuario.CodigoEmpleado]];
+                // TODO: Actualizar datos
+                return;
             }
-            else // La cédula no está en el diccionario
-            {
-                // Crear la entrada en los diccionarios
-                diccionarioCedulas.Add(usuario.CodigoEmpleado, contadorUsuarios);
-                contadorUsuarios++;
-                // Crea el usuario
-                string nombre = usuario.Nombre + " " + usuario.Apellido1 + " " + usuario.Apellido2;
-                Usuario nuevoUsuario = new Usuario(nombreCompleto: nombre, login: usuario.Login, cedula: usuario.CodigoEmpleado, organizacion: usuario.Empresa, ciudad: usuario.Ciudad, cargo: usuario.Cargo, activada:true, rrhh:true, da_fs:false, da_ofcbsb:false, da_arp:false);
-                diccionarioUsuarios.Add(contadorUsuarios, nuevoUsuario);
-            }
-
+            diccionarioCedulas.Add(usuario.Cedula, contadorUsuarios);
+            diccionarioUsuarios.Add(contadorUsuarios, usuario);
+            contadorUsuarios++;
+           
         }
+
+
+
 
         /// <summary>
         /// Imprime en consola todos los usuarios en el diccionario de usuarios.
