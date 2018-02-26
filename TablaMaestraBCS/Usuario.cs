@@ -130,6 +130,12 @@ namespace TablaMaestraBCS
             return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + Activada + ',' + RRHH + ',' + DA_FS + ',' + DA_ARP + ',' + DA_OFBCSC;
         }
 
-        
+        public void Combinar(Usuario otroUsuario)
+        {
+            RRHH = RRHH || otroUsuario.RRHH;
+            DA_FS = DA_FS || otroUsuario.DA_FS;
+            DA_OFBCSC = DA_OFBCSC || otroUsuario.DA_OFBCSC;
+            DA_ARP = DA_ARP || otroUsuario.DA_ARP;
+        }
     }
 }

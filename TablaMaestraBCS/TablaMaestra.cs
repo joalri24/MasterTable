@@ -41,7 +41,8 @@ namespace TablaMaestraBCS
                 if (diccionarioLogins.ContainsKey(usuario.Login))
                 {
                     // TODO: Actualizar usuario
-                    //Usuario usuarioExistente = diccionarioUsuarios[diccionarioLogins[usuario.Login]];
+                    Usuario usuarioExistente = diccionarioUsuarios[diccionarioLogins[usuario.Login]];
+                    usuarioExistente.Combinar(usuario);
                     // Agregar al diccionario de cédulas.
                     if (string.IsNullOrWhiteSpace(usuario.Cedula))
                     {
