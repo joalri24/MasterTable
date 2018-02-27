@@ -16,7 +16,9 @@ namespace TablaMaestraBCS
         {
             RRHH,
             Temporales,
-            AD_FS
+            AD_FS,
+            AD_ARP,
+            AD_OFBCSC
         }
        
 

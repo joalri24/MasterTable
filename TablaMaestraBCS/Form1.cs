@@ -15,7 +15,12 @@ namespace TablaMaestraBCS
 
         private TablaMaestra maestra;
         private string nombreArchivoRRHH;
+        private string nombreArchivoTemporales;
         private string nombreArchivoFS;
+        private string nombreArchivoOFBCSC;
+        private string nombreArchivoARP;
+        
+
 
         public Form1()
         {
@@ -53,16 +58,57 @@ namespace TablaMaestraBCS
             }
         }
 
+        private void buttonCargarOFBCSC_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                nombreArchivoOFBCSC = openFileDialog1.FileName;
+                textBoxOFCBC.Text = nombreArchivoOFBCSC;
+            }
+        }
+
+        private void buttonCargarARP_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                nombreArchivoARP = openFileDialog1.FileName;
+                textBoxARP.Text = nombreArchivoARP;
+            }
+        }
+
+        private void buttonCargarTemps_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                nombreArchivoTemporales = openFileDialog1.FileName;
+                textBoxTemps.Text = nombreArchivoTemporales;
+            }
+        }
+
         private void ButtonCorrer_Click(object sender, EventArgs e)
         {
             if(!string.IsNullOrWhiteSpace(nombreArchivoRRHH))
             {
                 LeerArchivo(Usuario.Fuentes.RRHH, nombreArchivoRRHH);
             }
+            if (!string.IsNullOrWhiteSpace(nombreArchivoTemporales))
+            {
+                LeerArchivo(Usuario.Fuentes.Temporales, nombreArchivoTemporales);
+            }
             if (!string.IsNullOrWhiteSpace(nombreArchivoFS))
             {
                 LeerArchivo(Usuario.Fuentes.AD_FS, nombreArchivoFS);
             }
+            if (!string.IsNullOrWhiteSpace(nombreArchivoOFBCSC))
+            {
+                LeerArchivo(Usuario.Fuentes.AD_OFBCSC, nombreArchivoOFBCSC);
+            }
+            if (!string.IsNullOrWhiteSpace(nombreArchivoARP))
+            {
+                LeerArchivo(Usuario.Fuentes.AD_ARP, nombreArchivoARP);
+            }
+
+
             maestra.ImprimirEnConsola();
         }
 
@@ -90,6 +136,7 @@ namespace TablaMaestraBCS
                 maestra.CargarUsuario(usuario);
             }
         }
+
 
     }
 }
