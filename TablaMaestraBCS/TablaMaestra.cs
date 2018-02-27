@@ -91,6 +91,7 @@ namespace TablaMaestraBCS
         /// </summary>
         public void ImprimirEnConsola()
         {
+            Console.WriteLine("NombreCompleto" + ',' + "Login" + ',' + "Cedula" + ',' + "Organizacion" + ',' + "Cargo" + ',' + "Ciudad" + ',' + "Activada" + ',' + "RRHH" + ',' + "DA_FS" + ',' + "DA_ARP" + ',' + "DA_OFBCSC" + ',' + "Temporales");
             foreach (var usuario in diccionarioUsuarios.Values)
             {
                 Console.WriteLine(usuario.ToCSV());

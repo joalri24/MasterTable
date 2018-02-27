@@ -65,6 +65,13 @@ namespace TablaMaestraBCS
                 nombreArchivoOFBCSC = openFileDialog1.FileName;
                 textBoxOFCBC.Text = nombreArchivoOFBCSC;
             }
+            // -----------------------------
+            /*string[] lineas = System.IO.File.ReadAllLines(nombreArchivoOFBCSC);
+            for (int i = 2; i < lineas.Length; i++)
+            {
+                string dato = lineas[i].Substring(0, 49).Trim();
+                Console.WriteLine(dato);
+            }*/
         }
 
         private void buttonCargarARP_Click(object sender, EventArgs e)
@@ -123,6 +130,12 @@ namespace TablaMaestraBCS
                 case Usuario.Fuentes.Temporales:
                     break;
                 case Usuario.Fuentes.AD_FS:
+                    inicio = 2;
+                    break;
+                case Usuario.Fuentes.AD_ARP:
+                    inicio = 2;
+                    break;
+                case Usuario.Fuentes.AD_OFBCSC:
                     inicio = 2;
                     break;
                 default:

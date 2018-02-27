@@ -33,6 +33,9 @@ namespace TablaMaestraBCS
         /// El usuario está en RRHH?
         /// </summary>
         public bool RRHH { get; set; }
+        /// El usuario está en RRHH?
+        /// </summary>
+        public bool Temporales { get; set; }
         /// <summary>
         /// El usuario está en FS del DA?
         /// </summary>
@@ -62,6 +65,7 @@ namespace TablaMaestraBCS
             DA_FS = false;
             DA_OFBCSC = false;
             DA_ARP = false;
+            Temporales = false;
 
         }
 
@@ -104,7 +108,6 @@ namespace TablaMaestraBCS
                 case Fuentes.Temporales:
                     break;
 
-
                 case Fuentes.AD_FS:
                     // Los datos están separados por ancho fijo
                     //Name                                                             extensionAttribute1 SamAccountName       Company                                                    Department                                                       Title                                                            SamAccountName       Enabled Created                AccountExpirationDate  LastLogonDate         .
@@ -117,6 +120,32 @@ namespace TablaMaestraBCS
                     usuario.Activada = true;
                     usuario.DA_FS = true;
                     break;
+
+                case Fuentes.AD_ARP:
+                    // Los datos están separados por ancho fijo                   
+                    usuario.NombreCompleto = datos.Substring(0, 59).Trim();
+                    usuario.Cedula = datos.Substring(58, 20).Trim();
+                    usuario.Login = datos.Substring(78, 20).Trim();
+                    usuario.Organizacion = datos.Substring(98, 52).Trim();
+                    usuario.Cargo = datos.Substring(198, 64).Trim();
+                    //usuario.Activada = bool.Parse(datos.Substring(316, 7).Trim());
+                    usuario.Activada = true;
+                    usuario.DA_ARP = true;
+                    break;
+
+                case Fuentes.AD_OFBCSC:
+                    // Los datos están separados por ancho fijo
+                    //Name                                                             extensionAttribute1 SamAccountName       Company                                                    Department                                                       Title                                                            SamAccountName       Enabled Created                AccountExpirationDate  LastLogonDate         .
+                    usuario.NombreCompleto = datos.Substring(0, 49).Trim();
+                    usuario.Cedula = datos.Substring(48, 20).Trim();
+                    usuario.Login = datos.Substring(68, 19).Trim();
+                    usuario.Organizacion = datos.Substring(87, 41).Trim();
+                    usuario.Cargo = datos.Substring(193, 50).Trim();
+                    //usuario.Activada = bool.Parse(datos.Substring(316, 7).Trim());
+                    usuario.Activada = true;
+                    usuario.DA_OFBCSC = true;
+                    break;
+
                 default:
                     break;
 	        }
@@ -129,7 +158,7 @@ namespace TablaMaestraBCS
         /// <returns></returns>
         public string ToCSV()
         {
-            return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + Activada + ',' + RRHH + ',' + DA_FS + ',' + DA_ARP + ',' + DA_OFBCSC;
+            return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + Activada + ',' + RRHH + ',' + DA_FS + ',' + DA_ARP + ',' + DA_OFBCSC + ',' + Temporales;
         }
 
         public void Combinar(Usuario otroUsuario)
