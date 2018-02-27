@@ -106,6 +106,14 @@ namespace TablaMaestraBCS
                     break;
 
                 case Fuentes.Temporales:
+                    linea = datos.Split(',');
+                    //DOCUMENTO,PRIMER_APELLIDO,SEGUN_APELLIDO,NOMBRE,EMPRESA,REGIONAL,GERENCIA,AREA,OFICINA,ARA,CARGO,TIPO_NOMINA,MOTV_CONTRATA,LOCALIDAD,F_INGRESO,FIN_CONTRATO                  
+                    usuario.Cedula = linea[0];
+                    usuario.NombreCompleto = linea[3] + " " + linea[1] + " " + linea[2];
+                    usuario.Organizacion = linea[4];
+                    usuario.Cargo = linea[10];
+                    usuario.Ciudad = linea[13];
+                    usuario.Temporales = true;
                     break;
 
                 case Fuentes.AD_FS:

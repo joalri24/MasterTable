@@ -75,6 +75,7 @@ namespace TablaMaestraBCS
             if(diccionarioCedulas.ContainsKey(usuario.Cedula)) // Buscar por cc.
             {
                 // TODO: Actualizar datos
+                Console.WriteLine("Duplicado: " + usuario.Cedula);
                 return;
             }
             diccionarioCedulas.Add(usuario.Cedula, contadorUsuarios);
