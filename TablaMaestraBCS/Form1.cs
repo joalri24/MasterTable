@@ -92,9 +92,15 @@ namespace TablaMaestraBCS
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonCorrer_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(nombreArchivoRRHH))
+            Console.WriteLine("Procesando...");
+            if (!string.IsNullOrWhiteSpace(nombreArchivoRRHH))
             {
                 LeerArchivo(Usuario.Fuentes.RRHH, nombreArchivoRRHH);
             }
@@ -114,9 +120,9 @@ namespace TablaMaestraBCS
             {
                 LeerArchivo(Usuario.Fuentes.AD_ARP, nombreArchivoARP);
             }
-
-
-            maestra.ImprimirEnConsola();
+            Console.WriteLine("Fin.");
+            //maestra.ImprimirEnConsola();
+            maestra.ImprimirCSV();
         }
 
         private void LeerArchivo(Usuario.Fuentes fuente, string nombreArchivo)

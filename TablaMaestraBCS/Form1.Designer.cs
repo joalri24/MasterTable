@@ -81,7 +81,7 @@
             // 
             // ButtonCorrer
             // 
-            this.ButtonCorrer.Location = new System.Drawing.Point(385, 184);
+            this.ButtonCorrer.Location = new System.Drawing.Point(148, 207);
             this.ButtonCorrer.Name = "ButtonCorrer";
             this.ButtonCorrer.Size = new System.Drawing.Size(75, 23);
             this.ButtonCorrer.TabIndex = 3;
@@ -205,7 +205,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 261);
+            this.ClientSize = new System.Drawing.Size(419, 261);
             this.Controls.Add(this.buttonCargarTemps);
             this.Controls.Add(this.textBoxTemps);
             this.Controls.Add(this.label5);

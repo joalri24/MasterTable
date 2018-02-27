@@ -98,6 +98,16 @@ namespace TablaMaestraBCS
             }
         }
 
+        public void ImprimirCSV()
+        {
+            string[] datos = new string[diccionarioUsuarios.Count];
+            int i = 0;
+            foreach (var usuario in diccionarioUsuarios.Values)
+            {
+                datos[i++] = usuario.ToCSV();
+            }
+            System.IO.File.WriteAllLines("MasterTable.csv", datos);
+        }
     }
 
 
