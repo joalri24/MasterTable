@@ -102,7 +102,7 @@ namespace TablaMaestraBCS
         public void ImprimirCSV()
         {
             string[] datos = new string[diccionarioUsuarios.Count+1];
-            datos[0] = "NombreCompleto" + ',' + "Login" + ',' + "Cedula" + ',' + "Organizacion" + ',' + "Cargo" + ',' + "Ciudad" + ',' + "Activada" + ',' + "RRHH" + ',' + "DA_FS" + ',' + "DA_ARP" + ',' + "DA_OFBCSC" + ',' + "Temporales";
+            datos[0] = "NombreCompleto" + ',' + "Login" + ',' + "Cedula" + ',' + "Organizacion" + ',' + "Cargo" + ',' + "Ciudad" + ',' + "Activada" + ',' + "RRHH" + ',' + "DA_FS" + ',' + "DA_ARP" + ',' + "DA_OFBCSC" + ',' + "Temporales" + ',' + "FS_login" + ',' + "ARP_login" + ',' + "OFBCSC_login";
             int i = 1;
             foreach (var usuario in diccionarioUsuarios.Values)
             {

@@ -20,7 +20,12 @@ namespace TablaMaestraBCS
             AD_ARP,
             AD_OFBCSC
         }
-       
+
+        private static Dictionary<bool, char> boolChar = new Dictionary<bool, char>()
+        {
+            { true,'t' }, {false,'f' }
+        };
+
 
         public string NombreCompleto { get; set; }
         public string Login { get; set; }
@@ -166,7 +171,10 @@ namespace TablaMaestraBCS
         /// <returns></returns>
         public string ToCSV()
         {
-            return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + Activada + ',' + RRHH + ',' + DA_FS + ',' + DA_ARP + ',' + DA_OFBCSC + ',' + Temporales;
+            if(!string.IsNullOrWhiteSpace(Login))
+                return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + boolChar[Activada] + ',' + boolChar[RRHH] + ',' + boolChar[DA_FS] + ',' + boolChar[DA_ARP] + ',' + boolChar[DA_OFBCSC] + ',' + boolChar[Temporales] + ',' + "FS\\" +Login +',' + "ARP\\" + Login + ',' + "OFBCSC\\" + Login;
+            else
+                return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + boolChar[Activada] + ',' + boolChar[RRHH] + ',' + boolChar[DA_FS] + ',' + boolChar[DA_ARP] + ',' + boolChar[DA_OFBCSC] + ',' + boolChar[Temporales] + ','  + ','  +',' ;
         }
 
         public void Combinar(Usuario otroUsuario)
@@ -176,5 +184,7 @@ namespace TablaMaestraBCS
             DA_OFBCSC = DA_OFBCSC || otroUsuario.DA_OFBCSC;
             DA_ARP = DA_ARP || otroUsuario.DA_ARP;
         }
+
+         
     }
 }
