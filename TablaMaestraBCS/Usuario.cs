@@ -172,9 +172,9 @@ namespace TablaMaestraBCS
         public string ToCSV()
         {
             if(!string.IsNullOrWhiteSpace(Login))
-                return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + boolChar[Activada] + ',' + boolChar[RRHH] + ',' + boolChar[DA_FS] + ',' + boolChar[DA_ARP] + ',' + boolChar[DA_OFBCSC] + ',' + boolChar[Temporales] + ',' + "FS\\" +Login +',' + "ARP\\" + Login + ',' + "OFBCSC\\" + Login;
+                return NombreCompleto + TablaMaestra.SEPARATOR + Login + TablaMaestra.SEPARATOR + Cedula + TablaMaestra.SEPARATOR + Organizacion + TablaMaestra.SEPARATOR + Cargo + TablaMaestra.SEPARATOR + Ciudad + TablaMaestra.SEPARATOR + boolChar[Activada] + TablaMaestra.SEPARATOR + boolChar[RRHH] + TablaMaestra.SEPARATOR + boolChar[DA_FS] + TablaMaestra.SEPARATOR + boolChar[DA_ARP] + TablaMaestra.SEPARATOR + boolChar[DA_OFBCSC] + TablaMaestra.SEPARATOR + boolChar[Temporales] + TablaMaestra.SEPARATOR + "FS\\" +Login +TablaMaestra.SEPARATOR + "ARP\\" + Login + TablaMaestra.SEPARATOR + "OFBCSC\\" + Login;
             else
-                return NombreCompleto + ',' + Login + ',' + Cedula + ',' + Organizacion + ',' + Cargo + ',' + Ciudad + ',' + boolChar[Activada] + ',' + boolChar[RRHH] + ',' + boolChar[DA_FS] + ',' + boolChar[DA_ARP] + ',' + boolChar[DA_OFBCSC] + ',' + boolChar[Temporales] + ','  + ','  +',' ;
+                return NombreCompleto + TablaMaestra.SEPARATOR + Login + TablaMaestra.SEPARATOR + Cedula + TablaMaestra.SEPARATOR + Organizacion + TablaMaestra.SEPARATOR + Cargo + TablaMaestra.SEPARATOR + Ciudad + TablaMaestra.SEPARATOR + boolChar[Activada] + TablaMaestra.SEPARATOR + boolChar[RRHH] + TablaMaestra.SEPARATOR + boolChar[DA_FS] + TablaMaestra.SEPARATOR + boolChar[DA_ARP] + TablaMaestra.SEPARATOR + boolChar[DA_OFBCSC] + TablaMaestra.SEPARATOR + boolChar[Temporales] + TablaMaestra.SEPARATOR  + TablaMaestra.SEPARATOR  +TablaMaestra.SEPARATOR ;
         }
 
         public void Combinar(Usuario otroUsuario)

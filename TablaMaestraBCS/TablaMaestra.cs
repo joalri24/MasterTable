@@ -12,6 +12,8 @@ namespace TablaMaestraBCS
     class TablaMaestra
     {
 
+        public const string SEPARATOR = ";";
+
         private Dictionary<string, int> diccionarioLogins;
         private Dictionary<string, int> diccionarioCedulas;
         private Dictionary<int, Usuario> diccionarioUsuarios;
@@ -92,7 +94,7 @@ namespace TablaMaestraBCS
         /// </summary>
         public void ImprimirEnConsola()
         {
-            Console.WriteLine("NombreCompleto" + ',' + "Login" + ',' + "Cedula" + ',' + "Organizacion" + ',' + "Cargo" + ',' + "Ciudad" + ',' + "Activada" + ',' + "RRHH" + ',' + "DA_FS" + ',' + "DA_ARP" + ',' + "DA_OFBCSC" + ',' + "Temporales");
+            Console.WriteLine("NombreCompleto" + SEPARATOR + "Login" + SEPARATOR + "Cedula" + SEPARATOR + "Organizacion" + SEPARATOR + "Cargo" + SEPARATOR + "Ciudad" + SEPARATOR + "Activada" + SEPARATOR + "RRHH" + SEPARATOR + "DA_FS" + SEPARATOR + "DA_ARP" + SEPARATOR + "DA_OFBCSC" + SEPARATOR + "Temporales");
             foreach (var usuario in diccionarioUsuarios.Values)
             {
                 Console.WriteLine(usuario.ToCSV());
@@ -102,7 +104,7 @@ namespace TablaMaestraBCS
         public void ImprimirCSV()
         {
             string[] datos = new string[diccionarioUsuarios.Count+1];
-            datos[0] = "NombreCompleto" + ',' + "Login" + ',' + "Cedula" + ',' + "Organizacion" + ',' + "Cargo" + ',' + "Ciudad" + ',' + "Activada" + ',' + "RRHH" + ',' + "DA_FS" + ',' + "DA_ARP" + ',' + "DA_OFBCSC" + ',' + "Temporales" + ',' + "FS_login" + ',' + "ARP_login" + ',' + "OFBCSC_login";
+            datos[0] = "NombreCompleto" + SEPARATOR + "Login" + SEPARATOR + "Cedula" + SEPARATOR + "Organizacion" + SEPARATOR + "Cargo" + SEPARATOR + "Ciudad" + SEPARATOR + "Activada" + SEPARATOR + "RRHH" + SEPARATOR + "DA_FS" + SEPARATOR + "DA_ARP" + SEPARATOR + "DA_OFBCSC" + SEPARATOR + "Temporales" + SEPARATOR + "FS_login" + SEPARATOR + "ARP_login" + SEPARATOR + "OFBCSC_login";
             int i = 1;
             foreach (var usuario in diccionarioUsuarios.Values)
             {
