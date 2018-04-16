@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -126,6 +127,7 @@ namespace TablaMaestraBCS
         {
             int inicio = 0;
             string encabezado;
+            StreamReader archivo;
             switch (fuente)
             {
                 case Usuario.Fuentes.RRHH:
@@ -135,7 +137,7 @@ namespace TablaMaestraBCS
                     inicio = 1;
                     break;
                 case Usuario.Fuentes.AD_FS:
-                    var archivo = new System.IO.StreamReader(nombreArchivo);
+                    archivo = new StreamReader(nombreArchivo);
                     encabezado = archivo.ReadLine(); // Lee la primera línea del archivo: la línea de encabezado. 
                     archivo.Close();
                     AD_FS = new RecursoAD() // Obtiene los índices de inicio y las longitudes de los campos.
@@ -148,16 +150,39 @@ namespace TablaMaestraBCS
                     };
                     inicio = 2;
                     break;
+
                 case Usuario.Fuentes.AD_ARP:
+                    archivo = new StreamReader(nombreArchivo);
+                    encabezado = archivo.ReadLine(); // Lee la primera línea del archivo: la línea de encabezado. 
+                    archivo.Close();
+                    AD_ARP = new RecursoAD() // Obtiene los índices de inicio y las longitudes de los campos.
+                    {
+                        Nombre = ObtenerPropiedades(encabezado, "Name"),
+                        Cedula = ObtenerPropiedades(encabezado, "extensionAttribute1"),
+                        Login = ObtenerPropiedades(encabezado, "SamAccountName"),
+                        Organizacion = ObtenerPropiedades(encabezado, "Company"),
+                        Cargo = ObtenerPropiedades(encabezado, "Title")
+                    };
                     inicio = 2;
                     break;
                 case Usuario.Fuentes.AD_OFBCSC:
+                    archivo = new StreamReader(nombreArchivo);
+                    encabezado = archivo.ReadLine(); // Lee la primera línea del archivo: la línea de encabezado. 
+                    archivo.Close();
+                    AD_OFBCSC = new RecursoAD() // Obtiene los índices de inicio y las longitudes de los campos.
+                    {
+                        Nombre = ObtenerPropiedades(encabezado, "Name"),
+                        Cedula = ObtenerPropiedades(encabezado, "extensionAttribute1"),
+                        Login = ObtenerPropiedades(encabezado, "SamAccountName"),
+                        Organizacion = ObtenerPropiedades(encabezado, "Company"),
+                        Cargo = ObtenerPropiedades(encabezado, "Title")
+                    };
                     inicio = 2;
                     break;
                 default:
                     break;
             }
-            string[] lineas = System.IO.File.ReadAllLines(nombreArchivo);
+            string[] lineas = File.ReadAllLines(nombreArchivo);
             Usuario usuario;
             for (int i = inicio; i < lineas.Length; i++)
             {
@@ -180,7 +205,7 @@ namespace TablaMaestraBCS
                 longitud++;
                 j++;
             }
-            //Console.WriteLine($"Inicio: {indice}, Longitud: {longitud}");
+
             return new ColumnaAD() { Inicio=indice, Longitud= longitud};
         }
     }

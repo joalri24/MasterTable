@@ -123,7 +123,6 @@ namespace TablaMaestraBCS
 
                 case Fuentes.AD_FS:
                     // Los datos están separados por ancho fijo
-                    //Name                                                             extensionAttribute1 SamAccountName       Company                                                    Department                                                       Title                                                            SamAccountName       Enabled Created                AccountExpirationDate  LastLogonDate         .
                     usuario.NombreCompleto = datos.Substring(Form1.AD_FS.Nombre.Inicio, Form1.AD_FS.Nombre.Longitud).Trim();
                     usuario.Cedula = datos.Substring(Form1.AD_FS.Cedula.Inicio, Form1.AD_FS.Cedula.Longitud).Trim();
                     usuario.Login = datos.Substring(Form1.AD_FS.Login.Inicio, Form1.AD_FS.Login.Longitud).Trim();
@@ -135,12 +134,11 @@ namespace TablaMaestraBCS
 
                 case Fuentes.AD_ARP:
                     // Los datos están separados por ancho fijo                   
-                    usuario.NombreCompleto = datos.Substring(0, 59).Trim();
-                    usuario.Cedula = datos.Substring(58, 20).Trim();
-                    usuario.Login = datos.Substring(78, 20).Trim();
-                    usuario.Organizacion = datos.Substring(98, 52).Trim();
-                    usuario.Cargo = datos.Substring(198, 64).Trim();
-                    //usuario.Activada = bool.Parse(datos.Substring(316, 7).Trim());
+                    usuario.NombreCompleto = datos.Substring(Form1.AD_ARP.Nombre.Inicio, Form1.AD_ARP.Nombre.Longitud).Trim();
+                    usuario.Cedula = datos.Substring(Form1.AD_ARP.Cedula.Inicio, Form1.AD_ARP.Cedula.Longitud).Trim();
+                    usuario.Login = datos.Substring(Form1.AD_ARP.Login.Inicio, Form1.AD_ARP.Login.Longitud).Trim();
+                    usuario.Organizacion = datos.Substring(Form1.AD_ARP.Organizacion.Inicio, Form1.AD_ARP.Organizacion.Longitud).Trim();
+                    usuario.Cargo = datos.Substring(Form1.AD_ARP.Cargo.Inicio, Form1.AD_ARP.Cargo.Longitud).Trim();
                     usuario.Activada = true;
                     usuario.DA_ARP = true;
                     break;
