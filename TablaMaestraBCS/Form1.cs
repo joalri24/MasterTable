@@ -13,6 +13,10 @@ namespace TablaMaestraBCS
     public partial class Form1 : Form
     {
 
+        public static RecursoAD AD_FS;
+        public static RecursoAD AD_OFBCSC;
+        public static RecursoAD AD_ARP;
+
         private TablaMaestra maestra;
         private string nombreArchivoRRHH;
         private string nombreArchivoTemporales;
@@ -121,6 +125,7 @@ namespace TablaMaestraBCS
         private void LeerArchivo(Usuario.Fuentes fuente, string nombreArchivo)
         {
             int inicio = 0;
+            string encabezado;
             switch (fuente)
             {
                 case Usuario.Fuentes.RRHH:
@@ -130,6 +135,17 @@ namespace TablaMaestraBCS
                     inicio = 1;
                     break;
                 case Usuario.Fuentes.AD_FS:
+                    var archivo = new System.IO.StreamReader(nombreArchivo);
+                    encabezado = archivo.ReadLine(); // Lee la primera línea del archivo: la línea de encabezado. 
+                    archivo.Close();
+                    AD_FS = new RecursoAD() // Obtiene los índices de inicio y las longitudes de los campos.
+                    {
+                        Nombre = ObtenerPropiedades(encabezado, "Name"),
+                        Cedula = ObtenerPropiedades(encabezado, "extensionAttribute1"),
+                        Login = ObtenerPropiedades(encabezado, "SamAccountName"),
+                        Organizacion = ObtenerPropiedades(encabezado, "Company"),
+                        Cargo = ObtenerPropiedades(encabezado, "Title")
+                    };
                     inicio = 2;
                     break;
                 case Usuario.Fuentes.AD_ARP:
@@ -151,5 +167,55 @@ namespace TablaMaestraBCS
         }
 
 
+        private ColumnaAD ObtenerPropiedades(string encabezado,string nombreColumna )
+        {
+            int indice = encabezado.IndexOf(nombreColumna); // Encuentra el inicio.
+            int longitud = 0;
+            char i = encabezado[indice];
+            int j = indice;
+            while(j < encabezado.Length)
+            {
+                if (longitud > nombreColumna.Length && encabezado[j] != ' ')
+                    break;
+                longitud++;
+                j++;
+            }
+            //Console.WriteLine($"Inicio: {indice}, Longitud: {longitud}");
+            return new ColumnaAD() { Inicio=indice, Longitud= longitud};
+        }
     }
+
+
+    #region clases auxiliares
+
+    /// <summary>
+    /// Se utiliza para saber donde está la información relevante en los archivos de AD.
+    /// Contiene los indices de inicio y las longitudes de los campos relevantes.
+    /// </summary>
+    public class RecursoAD
+    {
+        public ColumnaAD Nombre { get; set; }
+        public ColumnaAD Cedula { get; set; }
+        public ColumnaAD Login { get; set; }
+        public ColumnaAD Organizacion { get; set; }
+        public ColumnaAD Cargo { get; set; }
+
+    }
+
+    /// <summary>
+    /// Contiene la dupla de índice de inicio y de longitud de un campo.
+    /// </summary>
+    public class ColumnaAD
+    {
+        /// <summary>
+        /// Índice donde inica la columna.
+        /// </summary>
+        public int Inicio { get; set; }
+
+        /// <summary>
+        /// Longitud en caracteres de la columna.
+        /// </summary>
+        public int Longitud { get; set; }
+    }
+    #endregion
 }

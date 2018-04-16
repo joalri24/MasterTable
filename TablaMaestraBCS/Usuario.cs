@@ -124,12 +124,11 @@ namespace TablaMaestraBCS
                 case Fuentes.AD_FS:
                     // Los datos están separados por ancho fijo
                     //Name                                                             extensionAttribute1 SamAccountName       Company                                                    Department                                                       Title                                                            SamAccountName       Enabled Created                AccountExpirationDate  LastLogonDate         .
-                    usuario.NombreCompleto = datos.Substring(0, 65).Trim();
-                    usuario.Cedula = datos.Substring(65, 20).Trim();
-                    usuario.Login = datos.Substring(85, 21).Trim();
-                    usuario.Organizacion = datos.Substring(106, 59).Trim();
-                    usuario.Cargo = datos.Substring(230, 65).Trim();
-                    //usuario.Activada = bool.Parse(datos.Substring(316, 7).Trim());
+                    usuario.NombreCompleto = datos.Substring(Form1.AD_FS.Nombre.Inicio, Form1.AD_FS.Nombre.Longitud).Trim();
+                    usuario.Cedula = datos.Substring(Form1.AD_FS.Cedula.Inicio, Form1.AD_FS.Cedula.Longitud).Trim();
+                    usuario.Login = datos.Substring(Form1.AD_FS.Login.Inicio, Form1.AD_FS.Login.Longitud).Trim();
+                    usuario.Organizacion = datos.Substring(Form1.AD_FS.Organizacion.Inicio, Form1.AD_FS.Organizacion.Longitud).Trim();
+                    usuario.Cargo = datos.Substring(Form1.AD_FS.Cargo.Inicio, Form1.AD_FS.Cargo.Longitud).Trim();
                     usuario.Activada = true;
                     usuario.DA_FS = true;
                     break;
@@ -187,4 +186,5 @@ namespace TablaMaestraBCS
 
          
     }
+
 }
